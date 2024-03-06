@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "562570400279",
+    "firebase_url": "https://owe-me-stuff-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "owe-me-stuff",
+    "storage_bucket": "owe-me-stuff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562570400279:android:eeb4107c53232d790b4252",
+        "android_client_info": {
+          "package_name": "com.example.oweme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562570400279-0anldhtucv6aj0vspn6e5jld5rvnt1ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOzJP8tfmpyPpQ4MQIGJOj6uI2C326Ygw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562570400279-0anldhtucv6aj0vspn6e5jld5rvnt1ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
