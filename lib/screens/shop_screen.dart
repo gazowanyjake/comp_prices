@@ -7,7 +7,6 @@ import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import '../model/shop_content.dart';
 import '../provider/brain.dart';
 import '../widget/add_edit_container.dart';
-import '../widget/add_edit_container.dart';
 import '../widget/gradient_background.dart';
 
 class ShopScreen extends StatelessWidget {
@@ -31,15 +30,15 @@ class ShopScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () async {
-                var barcode = await Navigator.push(
+                final barcode = await Navigator.push<String>(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SimpleBarcodeScannerPage(),
                     ));
                 print(barcode);
                 String titleTemp =
-                    brainProvider.searchProductByBarcode(barcode);
-                showDialog(
+                    brainProvider.searchProductByBarcode(barcode ?? '');
+                showDialog<String>(
                   context: context,
                   builder: (context) => AddEditContainer(
                     title: titleTemp,
@@ -55,7 +54,7 @@ class ShopScreen extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () => showDialog(
+              onPressed: () => showDialog<void>(
                 context: context,
                 builder: (context) => AddEditContainer(
                   shopCords:
@@ -135,7 +134,7 @@ class ShopScreen extends StatelessWidget {
                           IconButton(
                             color: Theme.of(context).colorScheme.secondary,
                             onPressed: () {
-                              showDialog(
+                              showDialog<void>(
                                 context: context,
                                 builder: (context) => AddEditContainer(
                                   title: shopContent.productsList![index].title,

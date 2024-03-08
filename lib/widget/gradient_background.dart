@@ -6,7 +6,7 @@ class GradientBackground extends StatelessWidget {
     super.key,
   });
 
-  Widget child;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

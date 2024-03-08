@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../widget/best_cart_shop_container.dart';
 import '../provider/brain.dart';
-import '../widget/decorated_gradient.dart';
 import '../widget/gradient_background.dart';
 
 class BestCartsScreen extends StatelessWidget {

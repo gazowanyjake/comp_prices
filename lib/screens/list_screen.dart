@@ -21,15 +21,7 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  // late Future _futureTemp;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // final brainProvider = Provider.of<Brain>(context, listen: false);
-  //   // _futureTemp = brainProvider.loadProducts();
-  //   final brainProvider = Provider.of<Brain>(context, listen: false);
-  //   brainProvider.ListGenerator();
-  // }
+
   @override
   void initState() {
     super.initState();

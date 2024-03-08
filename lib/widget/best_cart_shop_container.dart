@@ -15,10 +15,10 @@ class BestCartShopContainer extends StatelessWidget {
     super.key,
   });
 
-  String shopName;
-  double cartPrice;
-  LatLng shopCords;
-  double distanceToShop;
+  final String shopName;
+  final double cartPrice;
+  final LatLng shopCords;
+  final double distanceToShop;
 
   @override
   Widget build(BuildContext context) {

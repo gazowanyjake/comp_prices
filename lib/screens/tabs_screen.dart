@@ -29,7 +29,7 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  late final Future _locationFuture;
+  late final Future<void> _locationFuture;
 
   @override
   void initState() {

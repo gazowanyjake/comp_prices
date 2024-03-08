@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DecoratedGradient extends StatelessWidget {
   DecoratedGradient({required this.widget, super.key});
-  Widget widget;
+  final Widget widget;
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

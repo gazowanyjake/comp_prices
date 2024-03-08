@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import '../provider/brain.dart';
 import '../screens/tabs_screen.dart';
-import '../widget/best_cart_shop_container.dart';
 import '../widget/enable_location_prompt.dart';
 import '../widget/product_tile.dart';
 import '../widget/search_list_container.dart';
@@ -20,18 +19,9 @@ class FavoriteListScreen extends StatefulWidget {
 }
 
 class _FavoriteListScreenState extends State<FavoriteListScreen> {
-  // late Future _futureTemp;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // final brainProvider = Provider.of<Brain>(context, listen: false);
-  //   // _futureTemp = brainProvider.loadProducts();
-  //   final brainProvider = Provider.of<Brain>(context, listen: false);
-  //   brainProvider.ListGenerator();
-  // }
+  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Provider.of<Brain>(context, listen: false).isSearching = false;
     Provider.of<Brain>(context, listen: false).isSearchingInFavorites = true;
@@ -46,7 +36,6 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
 
   @override
   void deactivate() {
-    // TODO: implement deactivate
     Provider.of<Brain>(context, listen: false).isSearchingInFavorites = false;
     super.deactivate();
   }

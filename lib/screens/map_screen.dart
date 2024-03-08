@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
-import 'package:geolocator/geolocator.dart';
 
 import '../provider/brain.dart';
 import '../widget/panel_content.dart';
@@ -26,14 +24,14 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     final brainProvider = Provider.of<Brain>(context, listen: false);
     brainProvider.searchBarLoading = true;
-    // brainProvider.getLocationPermission();
+
     brainProvider.checkInternetConnection();
     brainProvider.getCurrentLocation();
-    // brainProvider.clearBox();
+
     if (brainProvider.loadedList.isEmpty) {
       brainProvider.loadMarkers();
       print('markers loaded');
@@ -139,7 +137,7 @@ class _MapScreenState extends State<MapScreen> {
                     maxZoom: 18,
                     onTap: (tapPosition, point) {
                       if (brainProvider.readyToAddMarkerHandler) {
-                        showDialog(
+                        showDialog<String>(
                           context: context,
                           builder: (BuildContext context) =>
                               const AddShopContainer(),
@@ -153,7 +151,6 @@ class _MapScreenState extends State<MapScreen> {
                           },
                         );
 
-                        // brainProvider.addMarker(tapPosition, point, title);
                       }
                     },
                   ),
@@ -204,23 +201,6 @@ class _MapScreenState extends State<MapScreen> {
                         },
                       ),
                     ),
-                    // MarkerLayer(
-                    //   markers: brainProvider.loadedList
-                    //       .map(
-                    //         (e) => Marker(
-                    //           width: 80,
-                    //           height: 80,
-                    //           point: LatLng(e.latitude, e.longitude),
-                    //           builder: (_) => PinContainer(
-                    //             title: e.title,
-                    //             pinCords: LatLng(e.latitude, e.longitude),
-                    //           ),
-                    //         ),
-                    //       )
-                    //       .toList(),
-
-                    //   //  brainProvider.markersList,
-                    // ),
                     MarkerLayer(
                       markers: [brainProvider.userLocation],
                     )

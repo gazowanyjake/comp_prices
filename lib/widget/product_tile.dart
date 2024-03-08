@@ -16,12 +16,12 @@ class ProductTile extends StatefulWidget {
     super.key,
   });
 
-  int index;
-  String title;
-  double price;
-  bool isSearching;
-  List<ProductModel> searchList;
-  bool isFavList;
+  final int index;
+  final String title;
+  final double price;
+  final bool isSearching;
+  final List<ProductModel> searchList;
+  final bool isFavList;
 
   @override
   State<ProductTile> createState() => _ProductTileState();

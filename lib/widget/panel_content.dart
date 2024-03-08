@@ -3,7 +3,6 @@ import 'package:latlong2/latlong.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:wyniki/model/product_model.dart';
 import 'package:wyniki/model/shop_content.dart';
 import '../provider/brain.dart';
 import '../screens/shop_screen.dart';

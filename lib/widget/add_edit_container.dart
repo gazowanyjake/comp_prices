@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
-import '../model/shop_content.dart';
 import '../provider/brain.dart';
 import '../model/product_model.dart';
 
@@ -18,11 +16,11 @@ class AddEditContainer extends StatefulWidget {
     this.barCodeNumberTemp = 0,
     super.key,
   });
-  String title;
-  double price;
-  LatLng shopCords;
-  int index;
-  int barCodeNumberTemp;
+  final String title;
+  final double price;
+  final LatLng shopCords;
+  final int index;
+  final int barCodeNumberTemp;
 
   @override
   State<AddEditContainer> createState() => _AddEditContainerState();
@@ -58,7 +56,7 @@ class _AddEditContainerState extends State<AddEditContainer> {
                 initialValue: widget.title,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'gib product name';
+                    return 'provide product name';
                   }
                   return null;
                 },
@@ -86,7 +84,7 @@ class _AddEditContainerState extends State<AddEditContainer> {
                 initialValue: widget.price == 0 ? '' : widget.price.toString(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'gib product price';
+                    return 'provide product price';
                   } 
                   return null;
                 },

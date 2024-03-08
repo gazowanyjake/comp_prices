@@ -8,18 +8,13 @@ import 'package:wyniki/model/product_model.dart';
 import 'package:wyniki/model/shop_content.dart';
 import 'package:wyniki/screens/tabs_screen.dart';
 
-import 'screens/list_screen.dart';
 import './provider/brain.dart';
-import 'potem/potemitem_screen.dart';
-import 'potem/potemadd_item_screen.dart';
+
+
 import './screens/shop_screen.dart';
-import './screens/map_screen.dart';
-import './screens/tabs_screen.dart';
 import './screens/best_carts_screen.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductModelAdapter());
   Hive.registerAdapter(ShopContentAdapter());
@@ -54,8 +49,6 @@ class MyApp extends StatelessWidget {
         ),
         home: TabsScreen(),
         routes: {
-          ItemScreen.routeName: (context) => ItemScreen(),
-          AddItemScreen.routeName: (context) => AddItemScreen(),
           ShopScreen.routeName: (context) => ShopScreen(),
           TabsScreen.routeName: (context) => TabsScreen(),
           BestCartsScreen.routeName: (context) => BestCartsScreen(),

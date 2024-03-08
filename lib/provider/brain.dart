@@ -9,10 +9,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:wyniki/widget/best_cart_shop_container.dart';
 
-import '../potem/item_model.dart';
-import '../widget/pin_container.dart';
 import '../model/product_model.dart';
 
 class Brain with ChangeNotifier {
@@ -33,9 +30,9 @@ class Brain with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final barcodesDatabase = [];
+      final List<int> barcodesDatabase = [];
       for (var product in extractedData.entries) {
-        barcodesDatabase.add(product.value['barcode']);
+        barcodesDatabase.add(product.value['barcode'] as int);
       }
       for (var i = 0; i < allProductsWithBarcode.length; i++) {
         if (barcodesDatabase
@@ -60,65 +57,12 @@ class Brain with ChangeNotifier {
       print(error);
     }
   }
-
-  Future<void> loadProducts() async {
-    final response = await http.get(url);
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
-    List<ItemOwed> loadedData = [];
-    for (var item in extractedData.entries) {
-      loadedData.add(
-        ItemOwed(
-          id: item.key,
-          title: item.value['title'] as String,
-          description: item.value['description'] as String,
-        ),
-      );
-    }
-    itemsList = loadedData;
-    notifyListeners();
-  }
-
-  Future<void> deleteStuff(int index) async {
-    final editUrl = Uri.https(
-      'owe-me-stuff-default-rtdb.europe-west1.firebasedatabase.app',
-      'stuff/${itemsList[index].id}.json',
-    );
-    await http.delete(editUrl);
-    itemsList.removeAt(index);
-    notifyListeners();
-  }
-
-  Future<void> editStuff(
-    String titleTemp,
-    String descriptionTemp,
-    int index,
-  ) async {
-    final editUrl = Uri.https(
-      'owe-me-stuff-default-rtdb.europe-west1.firebasedatabase.app',
-      'stuff/${itemsList[index].id}.json',
-    );
-    await http.patch(
-      editUrl,
-      body: jsonEncode({
-        'title': titleTemp,
-        'description': descriptionTemp,
-      }),
-    );
-    itemsList[index] = ItemOwed(
-      id: itemsList[index].id,
-      title: titleTemp,
-      description: descriptionTemp,
-    );
-    notifyListeners();
-  }
-
-  List<ItemOwed> itemsList = [];
-
+  
   bool isInternetOn = true;
 
   Future<void> checkInternetConnection() async {
     try {
-      final response = await http.get(url);
+      await http.get(url);
       if(isInternetOn == false){
       isInternetOn = true;
       print('jest internet znowu');
@@ -216,133 +160,11 @@ class Brain with ChangeNotifier {
     notifyListeners();
   }
 
-  List<ShopContent> addCordsToProductsAndShops(List<ShopContent> boxShopList) {
-    List<ProductModel> productListTemp = [];
-    for (var s = 0; s < boxShopList.length; s++) {
-      if (boxShopList[s].productsList!.isEmpty) {
-        return [];
-      }
-      // boxShopList[s].shopCords = LatLng(
-      //   boxShopList[s].latitudeHive!,
-      //   boxShopList[s].longitudeHive!,
-      // );
-      productListTemp = boxShopList[s].productsList!;
-      // for (var p = 0; p < productListTemp.length; p++) {
-      //   boxShopList[s].productsList![p].productCords = LatLng(
-      //     productListTemp[p].latitudeHive!,
-      //     productListTemp[p].longitudeHive!,
-      //   );
-      // }
-    }
-    return boxShopList;
-  }
-
-  // void addShopsFromBox(List<ShopContent> boxShopList) {
-  //   for (var l = 0; l < boxShopList.length; l++) {
-  //     shopsList.add(
-  //       ShopContent(
-  //         title: boxShopList[l].title,
-  //         shopCords: LatLng(
-  //           boxShopList[l].latitudeHive!,
-  //           boxShopList[l].longitudeHive!,
-  //         ),
-  //         productsList: boxShopList[l].productsList,
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // Future<void> clearBox() async {
-  //   var box = Hive.box<ShopContent>(_boxWithShops);
-  //   box.clear();
-  //   loadedList = [];
-  //   markerCords = LatLng(0, 0);
-  //   // shopsList = [];
-  //   allProductsListOnMap = [];
-  //   // markersList = [];
-  //   searchBarLoading = true;
-  //   allProductsListGenerator();
-  //   notifyListeners();
-  // }
-
-  // void addMarker(_, LatLng pinCords, String title) {
-  //   if (shopsList.contains(
-  //         ShopContent(
-  //           title: title,
-  //           shopCords: pinCords,
-  //         ),
-  //       ) ||
-  //       title.isEmpty) {
-  //     return;
-  //   }
-  //   markerCords = pinCords;
-  //   markersList.add(
-  //     Marker(
-  //       point: pinCords,
-  //       builder: (ctx) {
-  //         return PinContainer(
-  //           title: title,
-  //           pinCords: pinCords,
-  //         );
-  //       },
-  //     ),
-  //   );
-  //   shopsList.add(
-  //     ShopContent(
-  //       title: title,
-  //       shopCords: pinCords,
-  //       productsList: [
-  //         ProductModel(
-  //           title: 'Kinderki',
-  //           price: 6,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'Miłosław Arcy Ipa',
-  //           price: 7,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'ser',
-  //           price: 1,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'mleko',
-  //           price: 3,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'cebula',
-  //           price: 4,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'marchew',
-  //           price: 10,
-  //           productCords: pinCords,
-  //         ),
-  //         ProductModel(
-  //           title: 'dupa',
-  //           price: 99,
-  //           productCords: pinCords,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  //   readyToAddMarkerHandler = false;
-  //   notifyListeners();
-  // }
-
   void openSlideUpPanel(LatLng pinCords) {
     markerCords = pinCords;
     notifyListeners();
     pc.open();
   }
-
-  // Marker getMarkerFromIndex(int index) {
-  //   return markersList[index];
-  // }
 
   final mapController = MapController();
   //
@@ -363,10 +185,7 @@ class Brain with ChangeNotifier {
     ShopContent? tempShop = box.getAt(boxShopIndex);
     tempShop!.productsList!.removeAt(productIndex);
     box.putAt(boxShopIndex, tempShop);
-    // final shop = loadedList.firstWhere((element) =>
-    //     element.latitude == cords.latitude &&
-    //     element.longitude == cords.longitude,);
-    // shop.productsList!.removeAt(productIndex);
+
     allProductsListGenerator();
     notifyListeners();
   }
@@ -385,11 +204,7 @@ class Brain with ChangeNotifier {
     tempShop!.productsList!.removeAt(productIndex);
     tempShop.productsList!.insert(productIndex, newProduct);
     box.putAt(boxShopIndex, tempShop);
-    // final shop = loadedList.firstWhere((element) =>
-    //     element.latitude == cords.latitude &&
-    //     element.longitude == cords.longitude);
-    // shop.productsList!.removeAt(productIndex);
-    // shop.productsList!.insert(productIndex, newProduct);
+ 
     notifyListeners();
   }
 
@@ -408,17 +223,7 @@ class Brain with ChangeNotifier {
     print(box.values.toList().length);
     box.putAt(boxShopIndex, tempShop);
     print(box.values.toList().length);
-    // final shop = loadedList.firstWhere(
-    //   (element) =>
-    //       element.latitude == cords.latitude &&
-    //       element.longitude == cords.longitude,
-    // );
-    // // print('newprodcords ${newProduct.productCords}');
-    // shop.productsList!.insert(
-    //   productIndex,
-    //   newProduct,
-    // );
-    // d
+   
     notifyListeners();
   }
 
@@ -446,8 +251,8 @@ class Brain with ChangeNotifier {
     }
   }
 
-  String searchProductByBarcode(var barcode) {
-    int barcodeTemp = int.parse(barcode as String);
+  String searchProductByBarcode(String barcode) {
+    int barcodeTemp = int.parse(barcode);
     for (var b = 0; b < allProductsWithBarcode.length; b++) {
       if (barcodeTemp == allProductsWithBarcode[b].barCodeNumber) {
         return allProductsWithBarcode[b].title;
@@ -457,13 +262,10 @@ class Brain with ChangeNotifier {
   }
 
   void allProductsListGenerator() {
-    // print('shops list lenght ${loadedList.length}');
     allProductsListOnMap = [];
-    print('loaded list productslist ${loadedList[0].productsList!.length}');
     for (var i = 0; i < loadedList.length; i++) {
       allProductsListOnMap += loadedList[i].productsList!;
     }
-    // print('allproducts list lenght ${allProductsListOnMap.length}');
     allProductsListNoDuplicatesGeneratorFunction(
       allProductsListOnMap,
     );
